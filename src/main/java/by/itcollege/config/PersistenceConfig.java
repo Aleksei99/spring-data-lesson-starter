@@ -1,4 +1,4 @@
-package by.hector.config;
+package by.itcollege.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,11 +16,12 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
- * @author i.sukach
+ * @author alexandergorovtsov
  */
 @Configuration
 @PropertySource("classpath:database.properties")
 @EnableTransactionManagement
+@EnableJpaRepositories(basePackages = "by.itcollege.repository")
 public class PersistenceConfig {
 
     @Value("${jdbc.driver}")
@@ -58,7 +59,7 @@ public class PersistenceConfig {
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("by.hector.entity");
+        factory.setPackagesToScan("by.itcollege.entity");
         factory.setDataSource(dataSource());
         factory.setJpaProperties(jpaProperties());
         return factory;
